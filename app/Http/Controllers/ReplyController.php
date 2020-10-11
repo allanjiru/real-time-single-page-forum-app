@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Reply;
+use App\Model\Question;
 use Illuminate\Http\Request;
 
 class ReplyController extends Controller
@@ -12,9 +13,10 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Question $question)
     {
-        //
+        $id = $question->id;
+        return Reply::where('question_id','=',$id)->latest()->get();
     }
 
     /**
