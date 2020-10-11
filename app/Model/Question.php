@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    
+    protected $guarded = [];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -20,5 +26,10 @@ class Question extends Model
     public function replies()
     {
         return $this->hasMany('App\Model\Reply');
+    }
+
+    public function getPathAttribute()
+    {
+        return asset("api/question/$this->slug");
     }
 }
